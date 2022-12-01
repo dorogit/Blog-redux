@@ -2,7 +2,7 @@ import JSONPlaceholder from "../APIs/JSONPlaceholder"
 
 export const fetchPosts = () => async dispatch => {
     const response = await JSONPlaceholder.get("./posts")
-    dispatch({type:"FETCH_POSTS",payload: response })
+    dispatch({type:"FETCH_POSTS",payload: response.data })
   }
   /*the fetchPosts function is an arrow function which calls dispatch, which is a redux-thunk method and in turn makes the API request.
   after the request is made, it "dispatches" itself and calls itself again but this time, it returns the payload object and hence, thunk does not call it again

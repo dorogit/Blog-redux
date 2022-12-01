@@ -7,13 +7,38 @@ class PostList extends Component {
   componentDidMount() {
     this.props.fetchPosts();
   }
+
+  renderList() {
+    console.log(this.props)
+    return(
+      this.props.posts.map((blog) => {
+        return (
+        <div className="card">
+          <div className="content">
+            <div className="header">{blog.title}</div>
+            <div className="description">
+              {blog.body}
+            </div>
+          </div>
+        </div>
+        )
+      })
+    )
+  }
+
   render() {
     return(
-      <div>
-        PostList
+      <div className="ui cards">
+        {this.renderList()}
       </div>
     )
   }
 }
 
-export default connect(null,{fetchPosts}) (PostList);
+const mapStateToProps = (state) => {
+  return {posts: state.reducers.posts}
+}
+
+export default connect(
+  mapStateToProps
+  ,{fetchPosts})(PostList);
