@@ -2,25 +2,27 @@ import React from "react";
 import { Component } from "react";
 import { connect } from "react-redux"
 import { fetchPosts } from "../actions";
-
+import UserHeader from "./UserHeader";
 class PostList extends Component {
   componentDidMount() {
     this.props.fetchPosts();
   }
 
   renderList() {
-    console.log(this.props)
     return(
       this.props.posts.map((blog) => {
         return (
-        <div className="card">
-          <div className="content">
-            <div className="header">{blog.title}</div>
-            <div className="description">
-              {blog.body}
+            <div className="item" key={blog.id}>
+              <div className="content">
+                <a className="header">{blog.title}</a>
+                <div className="meta">
+                  <span className="cinema"><UserHeader userID={blog.userId}/></span>
+                </div>
+                <div className="description">
+                  <p>{blog.body}</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
         )
       })
     )
@@ -28,7 +30,7 @@ class PostList extends Component {
 
   render() {
     return(
-      <div className="ui cards">
+      <div className="ui divided items">
         {this.renderList()}
       </div>
     )
